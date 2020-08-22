@@ -1,44 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:mobx_provider/mobx_provider.dart';
+import 'package:my_home/pages/home/widgets/app_drawer.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+import 'mobx/home_store.dart';
 
-class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return MobxStatefulObserver<HomeStore>(
+      store: HomeStore(),
+      builder: _content,
+    );
+  }
+
+  Widget _content(BuildContext context, HomeStore store) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flutter Demo Home Page"),
+        title: Text(store.pageTitle),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      drawer: AppDrawer(
+        drawerItems: store.drawerItems,
+        selectPage: store.selectDrawer,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: store.page,
     );
   }
 }
