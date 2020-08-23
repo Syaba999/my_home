@@ -64,9 +64,11 @@ class MainPage extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              _buildHouseInfo(context, "${store.totalArea}м",
-                                  "Общая площадь"),
-                              _buildHouseInfo(context, "${store.commonArea}м",
+                              _buildHouseInfo(context,
+                                  "${store.totalArea}м\u00b2", "Общая площадь"),
+                              _buildHouseInfo(
+                                  context,
+                                  "${store.commonArea}м\u00b2",
                                   "Площадь общего имущества"),
                               _buildHouseInfo(context, "${store.ownerCount}",
                                   "Собственников"),
